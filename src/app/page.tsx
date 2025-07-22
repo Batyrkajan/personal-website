@@ -17,7 +17,7 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isGlowVisible, setIsGlowVisible] = useState(false);
   const [isGlitchMode, setIsGlitchMode] = useState(false);
-  const [typedKeys, setTypedKeys] = useState("");
+  const typedKeys = useRef("");
   const digitalRainRef = useRef<HTMLDivElement>(null);
 
   // List of skills with their associated neon colors
@@ -38,7 +38,7 @@ export default function Home() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [skills.length]);
 
   // Mouse movement for glow effect
   useEffect(() => {
@@ -63,27 +63,22 @@ export default function Home() {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Only track lowercase letters
       if (e.key.length === 1 && e.key.match(/[a-z]/)) {
-        setTypedKeys((prev) => {
-          // Keep only the last 6 characters
-          const newKeys = (prev + e.key).slice(-SECRET_CODE.length);
+        typedKeys.current = (typedKeys.current + e.key).slice(-SECRET_CODE.length);
 
-          // Check if secret code is typed
-          if (newKeys === SECRET_CODE) {
-            setIsGlitchMode(true);
+        // Check if secret code is typed
+        if (typedKeys.current === SECRET_CODE) {
+          setIsGlitchMode(true);
 
-            // Play glitch sound
-            const audio = new Audio("/glitch.mp3");
-            audio.volume = 0.3;
-            audio.play().catch(() => {}); // Ignore errors if sound can't play
+          // Play glitch sound
+          const audio = new Audio("/glitch.mp3");
+          audio.volume = 0.3;
+          audio.play().catch(() => {}); // Ignore errors if sound can't play
 
-            // Automatically turn off glitch mode after 5 seconds
-            setTimeout(() => {
-              setIsGlitchMode(false);
-            }, 5000);
-          }
-
-          return newKeys;
-        });
+          // Automatically turn off glitch mode after 5 seconds
+          setTimeout(() => {
+            setIsGlitchMode(false);
+          }, 5000);
+        }
       }
     };
 

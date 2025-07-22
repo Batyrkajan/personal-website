@@ -101,7 +101,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="cyber-card p-6">
               <p className="text-lg mb-6 text-gray-400">
-                I'm always open to discussing new projects, opportunities, or
+                I&apos;m always open to discussing new projects, opportunities, or
                 partnerships. Feel free to reach out using the contact form or
                 through my social media.
               </p>

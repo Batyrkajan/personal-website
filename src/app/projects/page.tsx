@@ -182,7 +182,7 @@ export default function Projects() {
           <div className="neon-border-animated p-6 mb-12 bg-[var(--card-bg)]">
             <p className="text-center text-gray-400 text-lg max-w-3xl mx-auto">
               Explore my digital creations. Each project is a fusion of
-              technology and creativity, pushing the boundaries of what's
+              technology and creativity, pushing the boundaries of what&apos;s
               possible on the web.
             </p>
           </div>
