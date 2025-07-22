@@ -22,12 +22,13 @@ export default function Home() {
 
   // List of skills with their associated neon colors
   const skills = [
-    { name: "STRATEGIC THINKER", color: "var(--neon-green)" },
-    { name: "AI-FUELED CREATOR", color: "var(--neon-cyan)" },
-    { name: "UX + PSYCHOLOGY FUSION", color: "var(--neon-purple)" },
-    { name: "REAL-WORLD GAME PLAYER", color: "var(--neon-magenta)" },
-    { name: "NEXT.JS + REACT ENGINEER", color: "var(--neon-red)" },
-  ];
+  { name: "AI SYSTEMS DESIGNER", color: "var(--neon-green)" },             // Reflects your Transformer/LLM mastery journey
+  { name: "VISION-DRIVEN BUILDER", color: "var(--neon-cyan)" },            // Ties into your long-term ambition & proof-of-work drive
+  { name: "AUTOMATION + AGENT ARCHITECT", color: "var(--neon-purple)" },   // Reflects your n8n/DeepSeek/AI automation work
+  { name: "BUSINESS-TECH STRATEGIST", color: "var(--neon-magenta)" },      // Blends your AI + Business major and entrepreneurship focus
+  { name: "NEXT.JS + LLM UI ENGINEER", color: "var(--neon-red)" },         // Aesthetic + functional dev skills on portfolio / agent UIs
+];
+
 
   // Cycle through skills automatically
   useEffect(() => {
@@ -170,18 +171,22 @@ export default function Home() {
               <div className="lg:col-span-3 space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-xl sm:text-2xl font-[var(--font-orbitron)] tracking-wider text-[var(--neon-cyan)]">
-                    BUILDING THE FUTURE FROM THE EDGE OF THE SYSTEM
+                    BUILDING THE FUTURE FROM THE EDGE OF THE SYSTEM <span className="text-sm text-gray-500 italic ml-2">
+  (This website is currently a work in progress)
+</span>
+
                   </h2>
 
                   {/* Added spray tag class to heading for hover effect */}
                   <h1
-                    className="text-5xl sm:text-7xl font-bold tracking-tight font-[var(--font-orbitron)] spray-tag spray-tag-magenta"
+                    className="text-4xl md:text-7xl font-bold tracking-tight font-[var(--font-orbitron)] spray-tag spray-tag-magenta "
                     data-spray="BATYR"
                   >
                     I&apos;M{" "}
-                    <span className="neon-text-magenta">
-                      BATYR MAMMETESENOV
-                    </span>
+                    <span className="neon-text-magenta hover:text-[var(--neon-magenta)] text-5xl md:text-7xl leading-tight">
+  BATYR
+</span>
+
                   </h1>
 
                   <div className="h-16">
@@ -199,24 +204,26 @@ export default function Home() {
                   </div>
 
                   <p className="text-lg sm:text-xl text-gray-400 max-w-3xl border-l-4 border-[var(--neon-cyan)] pl-4">
-                    I&apos;m not here to blend in. I&apos;m here to{" "}
-                    <strong>build, disrupt, and dominate</strong> — using code,
-                    creativity, and strategy as my weapons. I combine front-end
-                    tech, behavioral psychology, and aesthetics to craft digital
-                    experiences that{" "}
-                    <strong>look sharp and think deeper</strong>.<br />
-                    <br />
-                    Born in Turkmenistan. Forged through discipline. Now
-                    mastering AI, business, and design in the U.S. Every line of
-                    code, every visual element, every interaction I build is
-                    part of a larger plan:{" "}
-                    <strong>to reshape systems from within</strong>.<br />
-                    <br />
-                    If you&apos;re building something <strong>
-                      bold
-                    </strong>, <strong>intelligent</strong>, and{" "}
-                    <strong>unapologetic</strong> — I want in.
-                  </p>
+  I&apos;m not here to blend in. I&apos;m here to{" "}
+  <strong>build, disrupt, and dominate</strong> — using{" "}
+  algorithms, systems thinking, and storytelling as my tools. I
+  combine{" "}
+  <strong>AI, automation, business intuition, and design</strong>{" "}
+  to craft solutions that{" "}
+  <strong>look sharp, move fast, and scale smart</strong>.<br />
+  <br />
+  Born in Turkmenistan. Forged through discipline. Now mastering{" "}
+  <strong>AI, entrepreneurship, and strategic design</strong> in
+  the U.S. Every project, every decision, every prototype I build
+  is part of a larger plan:{" "}
+  <strong>to reshape systems from within</strong>.<br />
+  <br />
+  If you&apos;re building something{" "}
+  <strong>bold</strong>,{" "}
+  <strong>intelligent</strong>, and{" "}
+  <strong>unapologetic</strong> — I want in.
+</p>
+
 
                   {/* Live status element */}
                   <div className="live-status inline-block">
@@ -326,18 +333,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* Social Media Links */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mb-8">
-        <div className="cyber-card p-6">
-          <h2 className="text-2xl font-semibold mb-4 font-[var(--font-orbitron)] text-[var(--neon-cyan)] text-center">
-            SOCIAL_CONNECTIONS
-          </h2>
-          <div className="flex flex-wrap gap-6 justify-center">
-            {/* ... existing social links ... */}
-          </div>
-        </div>
-      </div>
 
       {/* Digital signature tag */}
       <div className="digital-signature mb-8">BATYR::SYSTEM</div>
