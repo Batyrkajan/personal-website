@@ -2,11 +2,9 @@
 
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
-
-// Characters for digital rain effect
-const DIGITAL_MATRIX_CHARS =
-  "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲン";
+import DigitalRain from "@/components/DigitalRain";
+import { skills } from "@/data/skills";
+import NeonButton from "@/components/NeonButton";
 
 // Secret code for Easter egg
 const SECRET_CODE = "hackme";
@@ -18,16 +16,6 @@ export default function Home() {
   const [isGlowVisible, setIsGlowVisible] = useState(false);
   const [isGlitchMode, setIsGlitchMode] = useState(false);
   const typedKeys = useRef("");
-  const digitalRainRef = useRef<HTMLDivElement>(null);
-
-  // List of skills with their associated neon colors
-  const skills = [
-  { name: "AI SYSTEMS DESIGNER", color: "var(--neon-green)" },             // Reflects your Transformer/LLM mastery journey
-  { name: "VISION-DRIVEN BUILDER", color: "var(--neon-cyan)" },            // Ties into your long-term ambition & proof-of-work drive
-  { name: "AUTOMATION + AGENT ARCHITECT", color: "var(--neon-purple)" },   // Reflects your n8n/DeepSeek/AI automation work
-  { name: "BUSINESS-TECH STRATEGIST", color: "var(--neon-magenta)" },      // Blends your AI + Business major and entrepreneurship focus
-  { name: "NEXT.JS + LLM UI ENGINEER", color: "var(--neon-red)" },         // Aesthetic + functional dev skills on portfolio / agent UIs
-];
 
 
   // Cycle through skills automatically
@@ -39,7 +27,7 @@ export default function Home() {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [skills.length]);
+  }, []);
 
   // Mouse movement for glow effect
   useEffect(() => {
@@ -87,39 +75,9 @@ export default function Home() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Create digital rain effect
   useEffect(() => {
-    if (!digitalRainRef.current || !mounted) return;
-
-    const container = digitalRainRef.current;
-    const containerWidth = container.offsetWidth;
-    const columns = Math.floor(containerWidth / 20); // Space columns ~20px apart
-
-    // Clear previous columns
-    container.innerHTML = "";
-
-    // Create columns
-    for (let i = 0; i < columns; i++) {
-      const column = document.createElement("div");
-      column.className = "digital-rain-column";
-
-      // Random position and speed
-      column.style.left = `${Math.floor((i / columns) * 100)}%`;
-      column.style.animationDuration = `${Math.random() * 5 + 8}s`; // 8-13s
-
-      // Generate random characters
-      const charCount = Math.floor(Math.random() * 20) + 10; // 10-30 chars
-      let chars = "";
-      for (let j = 0; j < charCount; j++) {
-        chars += DIGITAL_MATRIX_CHARS.charAt(
-          Math.floor(Math.random() * DIGITAL_MATRIX_CHARS.length)
-        );
-      }
-      column.textContent = chars;
-
-      container.appendChild(column);
-    }
-  }, [mounted]);
+    setMounted(true);
+  }, []);
 
   if (!mounted) return null;
 
@@ -155,7 +113,7 @@ export default function Home() {
         {/* Hero Section with Cyberpunk Neon styling */}
         <div className="relative min-h-screen flex items-center overflow-hidden">
           {/* Digital rain background effect */}
-          <div ref={digitalRainRef} className="digital-rain"></div>
+          <DigitalRain />
 
           {/* Background grid effect */}
           <div className="absolute inset-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djRoLTJ2LTRoLTR2LTJoNHYtNGgydjRoNHYyaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20 z-0"></div>
@@ -236,20 +194,16 @@ export default function Home() {
 
                 <div className="flex flex-wrap gap-4">
                   {/* Added spray tag to create spray paint effect */}
-                  <Link
-                    href="/projects"
-                    className="neon-btn px-6 py-3 rounded-md font-medium tracking-wider font-[var(--font-orbitron)] spray-tag"
-                    data-spray="PROJECTS"
-                  >
+                  <NeonButton href="/projects" data-spray="PROJECTS">
                     VIEW PROJECTS
-                  </Link>
-                  <Link
+                  </NeonButton>
+                  <NeonButton
                     href="/contact"
-                    className="neon-btn-magenta px-6 py-3 rounded-md font-medium tracking-wider font-[var(--font-orbitron)] spray-tag spray-tag-magenta"
+                    className="neon-btn-magenta spray-tag-magenta"
                     data-spray="CONNECT"
                   >
                     CONTACT ME
-                  </Link>
+                  </NeonButton>
                 </div>
 
                 {/* Social links with hover glow */}

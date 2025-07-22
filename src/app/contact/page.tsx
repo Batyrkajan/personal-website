@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
+import DigitalRain from "@/components/DigitalRain";
+
+import CyberCard from "@/components/CyberCard";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,11 +16,6 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
   const [mounted, setMounted] = useState(false);
-  const digitalRainRef = useRef<HTMLDivElement>(null);
-
-  // Characters for digital rain effect (same as homepage)
-  const DIGITAL_MATRIX_CHARS =
-    "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲン";
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,36 +41,9 @@ export default function Contact() {
     }, 1500);
   };
 
-  // Create digital rain effect (similar to homepage)
   useEffect(() => {
     setMounted(true);
-
-    if (!digitalRainRef.current || !mounted) return;
-
-    const container = digitalRainRef.current;
-    const containerWidth = container.offsetWidth;
-    const columns = Math.floor(containerWidth / 20);
-
-    container.innerHTML = "";
-
-    for (let i = 0; i < columns; i++) {
-      const column = document.createElement("div");
-      column.className = "digital-rain-column";
-      column.style.left = `${Math.floor((i / columns) * 100)}%`;
-      column.style.animationDuration = `${Math.random() * 5 + 8}s`;
-
-      const charCount = Math.floor(Math.random() * 20) + 10;
-      let chars = "";
-      for (let j = 0; j < charCount; j++) {
-        chars += DIGITAL_MATRIX_CHARS.charAt(
-          Math.floor(Math.random() * DIGITAL_MATRIX_CHARS.length)
-        );
-      }
-      column.textContent = chars;
-
-      container.appendChild(column);
-    }
-  }, [mounted]);
+  }, []);
 
   if (!mounted) return null;
 
@@ -81,7 +52,7 @@ export default function Contact() {
       <Navbar />
 
       {/* Digital rain background effect */}
-      <div ref={digitalRainRef} className="digital-rain"></div>
+      <DigitalRain />
 
       {/* Background grid effect */}
       <div className="absolute inset-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djRoLTJ2LTRoLTR2LTJoNHYtNGgydjRoNHYyaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20 z-0"></div>
@@ -99,7 +70,7 @@ export default function Contact() {
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="cyber-card p-6">
+            <CyberCard>
               <p className="text-lg mb-6 text-gray-400">
                 I&apos;m always open to discussing new projects, opportunities, or
                 partnerships. Feel free to reach out using the contact form or
@@ -259,9 +230,9 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
-            </div>
+            </CyberCard>
 
-            <div className="cyber-card p-6 neon-border-animated">
+            <CyberCard className="neon-border-animated">
               <h2 className="text-2xl font-semibold mb-6 font-[var(--font-orbitron)] text-[var(--neon-cyan)]">
                 SEND_MESSAGE
               </h2>
@@ -338,7 +309,7 @@ export default function Contact() {
                   </button>
                 </div>
               </form>
-            </div>
+            </CyberCard>
           </div>
         </div>
       </main>

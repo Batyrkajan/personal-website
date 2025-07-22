@@ -1,46 +1,15 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import DigitalRain from "@/components/DigitalRain";
 
 export default function About() {
   const [mounted, setMounted] = useState(false);
-  const digitalRainRef = useRef<HTMLDivElement>(null);
 
-  // Characters for digital rain effect (same as homepage)
-  const DIGITAL_MATRIX_CHARS =
-    "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲン";
-
-  // Create digital rain effect (similar to homepage)
   useEffect(() => {
     setMounted(true);
-
-    if (!digitalRainRef.current || !mounted) return;
-
-    const container = digitalRainRef.current;
-    const containerWidth = container.offsetWidth;
-    const columns = Math.floor(containerWidth / 20);
-
-    container.innerHTML = "";
-
-    for (let i = 0; i < columns; i++) {
-      const column = document.createElement("div");
-      column.className = "digital-rain-column";
-      column.style.left = `${Math.floor((i / columns) * 100)}%`;
-      column.style.animationDuration = `${Math.random() * 5 + 8}s`;
-
-      const charCount = Math.floor(Math.random() * 20) + 10;
-      let chars = "";
-      for (let j = 0; j < charCount; j++) {
-        chars += DIGITAL_MATRIX_CHARS.charAt(
-          Math.floor(Math.random() * DIGITAL_MATRIX_CHARS.length)
-        );
-      }
-      column.textContent = chars;
-
-      container.appendChild(column);
-    }
-  }, [mounted]);
+  }, []);
 
   if (!mounted) return null;
 
@@ -49,7 +18,7 @@ export default function About() {
       <Navbar />
 
       {/* Digital rain background effect */}
-      <div ref={digitalRainRef} className="digital-rain"></div>
+      <DigitalRain />
 
       {/* Background grid effect */}
       <div className="absolute inset-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djRoLTJ2LTRoLTR2LTJoNHYtNGgydjRoNHYyaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20 z-0"></div>
@@ -219,6 +188,23 @@ export default function About() {
                   <span>LinkedIn</span>
                 </a>
               </div>
+            </div>
+            <div className="cyber-card p-6 col-span-1 md:col-span-2">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-2 px-4 py-2 border border-[var(--neon-green)] rounded-md hover:bg-[var(--neon-green)] hover:bg-opacity-20 transition-all duration-300"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v4h-2zm0 6h2v2h-2z" />
+                </svg>
+                <span>Download Resume</span>
+              </a>
             </div>
           </div>
         </div>

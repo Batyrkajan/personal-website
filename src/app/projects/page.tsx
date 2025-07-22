@@ -3,89 +3,16 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import DigitalRain from "@/components/DigitalRain";
+import CyberCard from "@/components/CyberCard";
 
-// Characters for digital rain effect (same as homepage)
-const DIGITAL_MATRIX_CHARS =
-  "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲン";
-
-// Sample project data
-const projects = [
-  {
-    id: 1,
-    title: "CO-RESEARCH ASSISTANT",
-    description:
-      "An AI-powered agent that assists students and professors by summarizing papers, generating hypotheses, organizing citations, and drafting research outlines.",
-    technologies: [
-      "Next.js",
-      "OpenAI API",
-      "LangChain",
-      "Pinecone",
-      "Tailwind CSS",
-    ],
-    imageUrl: "https://placehold.co/800x450/121212/00FFFF?text=CO-RESEARCH+AI",
-    demoUrl: "#",
-    githubUrl: "#",
-    color: "var(--neon-cyan)",
-    status: "Coming Soon",
-  },
-  {
-    id: 2,
-    title: "NEUROMORPHIC PORTFOLIO",
-    description:
-      "This site. A fully animated, glitch-enhanced, neon-infused personal portfolio — designed to reflect identity, power, and digital rebellion.",
-    technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "Vercel"],
-    imageUrl:
-      "https://placehold.co/800x450/121212/FF00FF?text=NEUROMORPHIC+PORTFOLIO",
-    demoUrl: "#",
-    githubUrl: "#",
-    color: "var(--neon-magenta)",
-  },
-  {
-    id: 3,
-    title: "INFLUENCE ENGINE",
-    description:
-      "A psychology-backed landing page analyzer that gives feedback on persuasive strength, emotional tone, and trust signals — built for marketers and strategists.",
-    technologies: ["Next.js", "GPT-4", "Tailwind CSS", "Vercel"],
-    imageUrl:
-      "https://placehold.co/800x450/121212/A4F600?text=INFLUENCE+ENGINE",
-    demoUrl: "#",
-    githubUrl: "#",
-    color: "var(--neon-green)",
-    status: "Coming Soon",
-  },
-  {
-    id: 4,
-    title: "MICROMARKET AI SCANNER",
-    description:
-      "An LLM-powered agent that scans Reddit, Product Hunt, and Google Trends to detect emerging niche markets and unmet demand.",
-    technologies: ["Next.js", "Python", "OpenAI API", "LangChain", "Scrapy"],
-    imageUrl:
-      "https://placehold.co/800x450/121212/7B2FF7?text=MICROMARKET+SCANNER",
-    demoUrl: "#",
-    githubUrl: "#",
-    color: "var(--neon-purple)",
-    status: "Coming Soon",
-  },
-  {
-    id: 5,
-    title: "CURRENCY SENTIMENT DASHBOARD",
-    description:
-      "An economic intelligence tool that scrapes sentiment data and indicators across news and social media to suggest optimal currency positioning.",
-    technologies: ["React", "Python", "BeautifulSoup", "OpenAI API"],
-    imageUrl:
-      "https://placehold.co/800x450/121212/FF4444?text=CURRENCY+SENTIMENT+AI",
-    demoUrl: "#",
-    githubUrl: "#",
-    color: "var(--neon-red)",
-    status: "Coming Soon",
-  },
-];
+import { projects } from "@/data/projects";
+import NeonButton from "@/components/NeonButton";
 
 export default function Projects() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
   const [cardsRefs, setCardsRefs] = useState<HTMLDivElement[]>([]);
   const [mounted, setMounted] = useState(false);
-  const digitalRainRef = useRef<HTMLDivElement>(null);
 
   // Function to add refs
   const addCardRef = (el: HTMLDivElement | null, index: number) => {
@@ -117,33 +44,6 @@ export default function Projects() {
       if (card) observer.observe(card);
     });
 
-    // Create digital rain effect
-    if (digitalRainRef.current && mounted) {
-      const container = digitalRainRef.current;
-      const containerWidth = container.offsetWidth;
-      const columns = Math.floor(containerWidth / 20);
-
-      container.innerHTML = "";
-
-      for (let i = 0; i < columns; i++) {
-        const column = document.createElement("div");
-        column.className = "digital-rain-column";
-        column.style.left = `${Math.floor((i / columns) * 100)}%`;
-        column.style.animationDuration = `${Math.random() * 5 + 8}s`;
-
-        const charCount = Math.floor(Math.random() * 20) + 10;
-        let chars = "";
-        for (let j = 0; j < charCount; j++) {
-          chars += DIGITAL_MATRIX_CHARS.charAt(
-            Math.floor(Math.random() * DIGITAL_MATRIX_CHARS.length)
-          );
-        }
-        column.textContent = chars;
-
-        container.appendChild(column);
-      }
-    }
-
     return () => {
       cardsRefs.forEach((card) => {
         if (card) observer.unobserve(card);
@@ -158,7 +58,7 @@ export default function Projects() {
       <Navbar />
 
       {/* Digital rain background effect */}
-      <div ref={digitalRainRef} className="digital-rain"></div>
+      <DigitalRain />
 
       {/* Background grid effect */}
       <div className="absolute inset-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djRoLTJ2LTRoLTR2LTJoNHYtNGgydjRoNHYyaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20 z-0"></div>
@@ -179,20 +79,19 @@ export default function Projects() {
             <div className="h-px flex-1 bg-gray-800"></div>
           </div>
 
-          <div className="neon-border-animated p-6 mb-12 bg-[var(--card-bg)]">
+          <CyberCard className="neon-border-animated p-6 mb-12">
             <p className="text-center text-gray-400 text-lg max-w-3xl mx-auto">
               Explore my digital creations. Each project is a fusion of
               technology and creativity, pushing the boundaries of what&apos;s
               possible on the web.
             </p>
-          </div>
+          </CyberCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {projects.map((project, index) => (
-              <div
+              <CyberCard
                 key={project.id}
-                ref={(el) => addCardRef(el, index)}
-                className={`cyber-card rounded-lg overflow-hidden transform transition-all duration-500 opacity-0 translate-y-10`}
+                className={`rounded-lg overflow-hidden transform transition-all duration-500 opacity-0 translate-y-10`}
                 style={{
                   transitionDelay: `${index * 150}ms`,
                   // When active, add a glowing border with the project's color
@@ -298,16 +197,13 @@ export default function Projects() {
                     </a>
                   </div>
                 </div>
-              </div>
+              </CyberCard>
             ))}
           </div>
 
           <div className="mt-16 text-center">
-            <a
+            <NeonButton
               href="https://github.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 neon-btn rounded-md spray-tag"
               data-spray="GITHUB"
             >
               <svg
@@ -322,14 +218,14 @@ export default function Projects() {
                 ></path>
               </svg>
               VIEW ALL PROJECTS
-            </a>
+            </NeonButton>
           </div>
         </div>
       </main>
 
       {/* Social Media Links */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="cyber-card p-6">
+        <CyberCard className="p-6">
           <h2 className="text-2xl font-semibold mb-4 font-[var(--font-orbitron)] text-[var(--neon-cyan)] text-center">
             SOCIAL_CONNECTIONS
           </h2>
@@ -378,7 +274,7 @@ export default function Projects() {
               <span>LinkedIn</span>
             </a>
           </div>
-        </div>
+        </CyberCard>
       </div>
 
       {/* Digital signature tag */}
